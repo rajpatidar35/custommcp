@@ -32,17 +32,10 @@ Both implementations utilize the **Agentforce Python SDK** to communicate with S
 Clone the repository and configure the required environment variables:
 
 ```bash
-git clone https://github.com/Mohit-Harsh/AgentforceMCP.git
-cd AgentforceMCP
+git clone [https://github.com/rajpatidar35/custommcp]
+cd custommcp
 ```
 
-Create a `.env` file in the project root directory and include the following credentials:
-
-```powershell
-UNAME=<your-salesforce-username>
-PASSWORD=<your-salesforce-password>
-SECURITY_TOKEN=<your-salesforce-security-token>
-```
 
 > ⚠️ **Note:** Ensure these credentials correspond to a valid Salesforce user with Agentforce access.
 
@@ -67,7 +60,7 @@ This will install all necessary libraries for both MCP and FastAPI servers, incl
 To start the MCP server (used for MCP clients and inspectors):
 
 ```bash
-python ./src/streamable-http/server.py
+python ./src/streamable-http/serverllm.py
 ```
 
 The MCP server will initialize and listen for incoming MCP client connections.
