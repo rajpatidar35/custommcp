@@ -1,0 +1,17 @@
+{
+  "name": "@mohitharsh/agentforcemcp",
+  "version": "2.0.2",
+  "description": "Agentforce stdio server for Agentforce Agent integration",
+  "bin": {
+    "mcp-server": "./index.js"
+  },
+  "type": "module",
+  "files": [
+    "index.js",
+    "server.py",
+    "requirements.txt"
+  ],
+  "scripts": {},
+  "author": "Mohit Harsh",
+  "license": "MIT"
+}
