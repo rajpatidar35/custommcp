@@ -32,8 +32,8 @@ Both implementations utilize the **Agentforce Python SDK** to communicate with S
 Clone the repository and configure the required environment variables:
 
 ```bash
-git clone [https://github.com/rajpatidar35/custommcp]
-cd custommcp
+git clone https://github.com/Mohit-Harsh/AgentforceMCP.git
+cd AgentforceMCP
 ```
 
 

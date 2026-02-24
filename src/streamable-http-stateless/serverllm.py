@@ -5,7 +5,7 @@ import requests
 import json
 import os
 import mcp
-
+ 
 app = FastMCP(name="Agentforce MCP Server")
 
 # Global variables for API endpoint, authorization key, and model ID from Heroku config variables
