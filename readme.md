@@ -60,7 +60,7 @@ This will install all necessary libraries for both MCP and FastAPI servers, incl
 To start the MCP server (used for MCP clients and inspectors):
 
 ```bash
-python ./src/streamable-http/serverllm.py
+python ./src/serverllm.py
 ```
 
 The MCP server will initialize and listen for incoming MCP client connections.
@@ -71,7 +71,7 @@ The MCP server will initialize and listen for incoming MCP client connections.
 
 To run the FastAPI server for REST API access:
 ```bash
-fastapi dev ./src/fastapi/server.py
+fastapi dev ./src/serverllm.py
 ```
 
 This launches a development instance of the FastAPI application, exposing REST endpoints that interact with Agentforce Agents.
