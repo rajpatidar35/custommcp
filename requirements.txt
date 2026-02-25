@@ -2,6 +2,5 @@ agentforce-sdk
 mcp
 fastmcp
 fastapi[standard]
-sqlite3
 python-dotenv
 requests
