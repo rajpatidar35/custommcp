@@ -1,1 +1,1 @@
-mcp-python: python src/streamable-hhtpstateless/serverllm.py
+mcp-python: python src/streamable-http-stateless/serverllm.py
