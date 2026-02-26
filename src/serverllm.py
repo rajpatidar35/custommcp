@@ -4,9 +4,9 @@ from dotenv import load_dotenv
 import requests
 import json
 import os
-import mcp
+from urllib.parse import quote
  
-app = FastMCP(name="Agentforce MCP Server")
+app = FastMCP(name="Partner MCP Server")
 
 # Global variables for API endpoint, authorization key, and model ID from Heroku config variables
 ENV_VARS = {
@@ -75,9 +75,75 @@ payload = {
     "stream": False
      }
 
+def partner_profile(email_id):
+    # 1. URL Encoding the dynamic input
+    # This turns 'test@example.com' into 'test%40example.com'
+    encoded_id = quote(email_id)
+# 2. Constructing the Dynamic URL
+    base_url = "https://partner-service-track-api-v1-uw2-qa.us-w2.cloudhub.io/api/partner-profile/partners"
+    url = f"{base_url}/{email_id}"
+
+    # 3. Payload (using the dynamic email inside the body too)
+    payload = {
+        "sfdc_networkid": "",
+        "family_name": "",
+        "name": "",
+        "organization_id": "",
+        "user_id": "",
+        "picture": "",
+        "given_name": "",
+        "active": "",
+        "profile": "",
+        "utcOffset": "",
+        "address": "{}",
+        "email_verified": "",
+        "email": "",
+        "is_app_installed": "",
+        "nickname": "",
+        "isAvailableForHire": "",
+        "updated_at": "",
+        "user_type": "",
+        "urls": "{}",
+        "custom_attributes": "{LoginTime=1732134172082, ThirdPartyAccountLink1=salesforce:00DRt0000080OHIMA2005Rt00000BpBODIA3:test-hsiynu294aw2@example.com:Developer Edition:trial:Standard:true, LastLoggedInFrom=salesforce:00DRt0000080OHIMA2005Rt00000BpBODIA3:test-hsiynu294aw2@example.com:::prathampanat6+082jtesttrever@gmail.com}",
+        "photos": "{}",
+        "locale": "",
+        "preferred_username": "",
+        "language": "",
+        "newRegistration": "",
+        "zoneinfo": "",
+        "sub": ""
+    }
+    
+        
 
 
-@app.tool(name="invoke_heroku_model")
+    headers = {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "client_id": "ab7319c14e084de3b8826fe9d88a796d",
+        "client_secret": "896Cb1365e7e4B15A61c5b34dA7Cd0eA", 
+    }
+
+    # 4. Execution
+    try:
+        print(f"Sending request to: {url}")
+        print(f"Sending payload to: {payload}")
+        response = requests.post(url, headers=headers, data=payload)
+        
+        # Check for 2xx status codes
+        response.raise_for_status()
+        
+        print(f"--- Success ({response.status_code}) ---")
+        print(f"--- Response JSON: {response.json()} ---")
+        return response.json()
+
+    except requests.exceptions.HTTPError as err:
+        print(f"--- HTTP Error: {response.status_code} ---")
+        print(f"ERROR Response text: {response.text}")
+    except Exception as e:
+        print(f"--- Connection Error: {e} ---")
+
+@app.tool(name="invoke_heroku_model_llm")
 def search(name: str) -> str:
     """get a promt from the user and return a response"""
     print(f"Received prompt: {name}")
@@ -85,7 +151,11 @@ def search(name: str) -> str:
     payload["messages"][-1]["content"] = name
     return generate_chat_completion(payload)
 
-
+@app.tool(name="invoke_partner_profile")
+def get_partner_profile(email_id: str) -> str:
+    """get partner profile for a given email_id"""
+    print(f"Received email_id: {email_id}")
+    return json.dumps(partner_profile(email_id))
 
 if __name__ == "__main__":
     app.run('streamable-http', host='localhost', port=8000)
